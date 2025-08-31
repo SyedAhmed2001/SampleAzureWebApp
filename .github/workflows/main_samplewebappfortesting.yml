@@ -28,8 +28,11 @@ jobs:
         run: nuget restore
 
       - name: Publish to folder
-        run: msbuild /nologo /verbosity:m /t:Build /p:_PackageTempDir="\published\"
+        run: msbuild /nologo /verbosity:m /t:Build /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:OutDir=published
 
+      - name: List published folder
+        run: dir published
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -65,3 +68,4 @@ jobs:
           package: .
 
           
+
